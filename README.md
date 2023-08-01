@@ -1,16 +1,17 @@
 # Link-sharing app
 
-![](./public/preview.jpg)
+![](./public/preview.jpeg)
 
 ### [Live Site](https://your-live-site-url.com)
 
 ## Table of contents
 
 - [Link-sharing app](#link-sharing-app)
+    - [Live Site](#live-site)
   - [Table of contents](#table-of-contents)
   - [Overview](#overview)
-  - [About](#about)
-  - [Built with](#built-with)
+    - [About](#about)
+    - [Built with](#built-with)
   - [Authors](#authors)
 
 
