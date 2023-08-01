@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*:after {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  line-height: 150%;
+  font-style: normal;
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #fafafa;
+  color: #333;
+}
+
+/* Heading M */
+
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+/* Heading S */
+
+h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Body M */
+
+h6 {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+/* Body S */
+
+p {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+
+input,
+fieldset,
+button {
+  border: unset;
+  outline: unset;
+}
