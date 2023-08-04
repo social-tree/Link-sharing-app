@@ -1,5 +1,5 @@
 
-export type TVariant = 'primary' | 'secondary' | "nav"
+export type TVariant = 'primary' | 'secondary'
 
 export interface IButtonProps {
     variant: TVariant
