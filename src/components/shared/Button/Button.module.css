@@ -45,39 +45,3 @@
   border: 1px solid #633CFF;
   opacity: 0.25;
 }
-
-/* 
-.StyledButton path {
-  transition: 0.5s ease fill;
-}
-
-.StyledButton h2 {
-  font-size: 16px;
-  font-weight: 600;
-}
-
-.StyledButton.tab {
-  width: 130px;
-  color: #737373;
-}
-
-
-.active {
-  color: #633cff;
-  background: #efebff;
-}
-
-.StyledButton.active path {
-  fill: #633CFF;
-}
-
-.StyledButton.tab:hover {
-  color: #633CFF;
-}
-
-.StyledButton.tab:hover path {
-  fill: #633CFF;
-} 
-
-
-*/
