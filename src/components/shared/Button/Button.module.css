@@ -1,0 +1,83 @@
+.button {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  border-radius: 8px;
+  cursor: pointer;
+  justify-content: center;
+  transition: 0.5s ease color, 0.5s ease background;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+
+.primary {
+  width: 227px;
+  background: #633CFF;
+  color: #fff;
+}
+
+.secondary {
+  width: 227px;
+  color: #633CFF;
+  border: 1px solid #633CFF;
+}
+
+.primary:active {
+  border-radius: 8px;
+  background: #BEADFF;
+  box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
+}
+
+.secondary:active  {
+  background: #EFEBFF;
+}
+
+.button.primary:disabled {
+  opacity: 0.25;
+  background: #633CFF;
+}
+
+.button.secondary:disabled {
+  border: 1px solid #633CFF;
+  opacity: 0.25;
+}
+
+/* 
+.StyledButton path {
+  transition: 0.5s ease fill;
+}
+
+.StyledButton h2 {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.StyledButton.tab {
+  width: 130px;
+  color: #737373;
+}
+
+
+.active {
+  color: #633cff;
+  background: #efebff;
+}
+
+.StyledButton.active path {
+  fill: #633CFF;
+}
+
+.StyledButton.tab:hover {
+  color: #633CFF;
+}
+
+.StyledButton.tab:hover path {
+  fill: #633CFF;
+} 
+
+
+*/
