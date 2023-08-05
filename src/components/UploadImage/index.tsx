@@ -1,14 +1,12 @@
-"use client"
+'use client'
 
-import FileBase from "react-file-base64"
-import { UploadImageIcon } from "icons"
-import styles from "./UploadImage.module.css"
-import { useState } from "react"
+import FileBase from 'react-file-base64'
+import { UploadImageIcon } from 'icons'
+import styles from './UploadImage.module.css'
+import { useState } from 'react'
 
 function UploadImage() {
-
-    const [file, setFile] = useState("")
-
+  const [file, setFile] = useState('')
 
   return (
     <div className={styles.uploadImage}>
@@ -18,12 +16,14 @@ function UploadImage() {
         onDone={({ base64 }: { base64: string }) => setFile(base64)}
       />
       <div
-        className={`${styles.uploadImage__image} ${file && styles.uploadImage__image_withImage}`}
+        className={`${styles.uploadImage__image} ${
+          file && styles.uploadImage__image_withImage
+        }`}
         style={{ backgroundImage: `url(${file})` }}
       >
         <div className={styles.uploadImage__container}>
           <UploadImageIcon />
-          <h2>{file ? "Change Image" : "+ Upload Image"}</h2>
+          <h2>{file ? 'Change Image' : '+ Upload Image'}</h2>
         </div>
       </div>
     </div>
