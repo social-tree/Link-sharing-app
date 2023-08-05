@@ -1,12 +1,11 @@
 :root {
-  --purple-100: #efebff;
-  --purple-200: #efebff;
-  --purple-300: #efebff;
-  --grey-100: #efebff;
-  --grey-200: #efebff;
-  --grey-300: #efebff;
-  --grey-400: #efebff;
-
+  --purple: #633cff;
+  --purple-hover: #beadff;
+  --light-purple: #efebff;
+  --dark-grey: #333333;
+  --grey: #737373;
+  --borders: #d9d9d9;
+  --light-grey: #efebff;
   --white: #ffffff;
   --red: #ff3939;
 }
