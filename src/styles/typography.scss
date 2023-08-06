@@ -1,0 +1,19 @@
+@mixin heading-m {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+@mixin heading-s {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+@mixin body-m {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+@mixin body-s {
+    font-size: 12px;
+    font-weight: 400;
+}
