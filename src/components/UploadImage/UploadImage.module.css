@@ -34,7 +34,6 @@
   box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.5);
 }
 
-
 .uploadImage__container {
   display: flex;
   align-items: center;
@@ -47,18 +46,17 @@
 .uploadImage__container h2 {
   color: #633cff;
   font-weight: 600;
-
 }
 
-.uploadImage__container h2, .uploadImage__container path {
-    transition: .5s ease fill, .5s
+.uploadImage__container h2,
+.uploadImage__container path {
+  transition: 0.5s ease fill, 0.5s;
 }
-
 
 .uploadImage__image_withImage h2 {
-    color: #fff;
+  color: #fff;
 }
 
 .uploadImage__image_withImage path {
-    fill: #fff;
+  fill: #fff;
 }
