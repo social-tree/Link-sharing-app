@@ -1,19 +1,19 @@
-import "./globals.css";
-import "@/styles/theme.css";
+import './globals.css'
+import '@/styles/theme.css'
 
-import { Instrument_Sans } from "next/font/google";
-import type { Metadata } from "next";
+import { Instrument_Sans } from 'next/font/google'
+import type { Metadata } from 'next'
 
-const instrumentSans = Instrument_Sans({ subsets: ["latin"] });
+const instrumentSans = Instrument_Sans({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Link sharing app",
+  title: 'Link sharing app',
   description:
-    "Discover and share valuable developer links with DevLinks, the Next.js-powered app for developers.",
-};
+    'Discover and share valuable developer links with DevLinks, the Next.js-powered app for developers.',
+}
 
 interface IProps {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 export default function RootLayout({ children }: IProps) {
@@ -21,5 +21,5 @@ export default function RootLayout({ children }: IProps) {
     <html lang="en">
       <body className={instrumentSans.className}>{children}</body>
     </html>
-  );
+  )
 }
