@@ -1,5 +1,5 @@
 import { InputProps } from './Input.types'
-import styles from './Input.module.css'
+import styles from './Input.module.scss'
 
 export const Input = ({ leftIcon, ...props }: InputProps) => {
   return (
