@@ -27,11 +27,8 @@ const PlatformSchema = new Schema<PlatformDocument>({
 })
 
 
-const PlatformsSchema = new Schema({
-    platforms: [PlatformSchema]
-})
 
 
-const Platforms = models.Platforms || model("Platforms", PlatformsSchema)
+const Platform = models.Platform || model("Platform", PlatformSchema)
 
-export default Platforms
+export default Platform
