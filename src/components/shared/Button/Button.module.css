@@ -13,35 +13,34 @@
   font-weight: 600;
 }
 
-
 .primary {
   width: 227px;
-  background: #633CFF;
+  background: #633cff;
   color: #fff;
 }
 
 .secondary {
   width: 227px;
-  color: #633CFF;
-  border: 1px solid #633CFF;
+  color: #633cff;
+  border: 1px solid #633cff;
 }
 
 .primary:active {
   border-radius: 8px;
-  background: #BEADFF;
+  background: #beadff;
   box-shadow: 0px 0px 32px 0px rgba(99, 60, 255, 0.25);
 }
 
-.secondary:active  {
-  background: #EFEBFF;
+.secondary:active {
+  background: #efebff;
 }
 
 .button.primary:disabled {
   opacity: 0.25;
-  background: #633CFF;
+  background: #633cff;
 }
 
 .button.secondary:disabled {
-  border: 1px solid #633CFF;
+  border: 1px solid #633cff;
   opacity: 0.25;
 }

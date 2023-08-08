@@ -36,7 +36,7 @@ Users should be able to:
 ### Built with
 
 - [Next.JS](https://nextjs.org/) - React framework
-- [Prisma](https://www.prisma.io/) - ORM
+- [Sass](https://sass-lang.com/) - Styling
 - [Mongodb](https://www.mongodb.com/) - Database
 
 
