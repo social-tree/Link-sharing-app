@@ -51,10 +51,13 @@ p {
   font-weight: 400;
 }
 
-
 input,
 fieldset,
 button {
   border: unset;
   outline: unset;
+}
+a {
+  all: unset;
+  cursor: pointer;
 }
