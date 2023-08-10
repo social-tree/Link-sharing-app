@@ -1,11 +1,14 @@
 import { InputProps } from './Input.types'
 import styles from './Input.module.scss'
 
-export const Input = ({ leftIcon, ...props }: InputProps) => {
+export const Input = ({ leftIcon, rightIcon, ...props }: InputProps) => {
   return (
-    <label className={styles.container}>
-      {leftIcon}
-      <input className={styles.container__input} {...props} />
-    </label>
+    <div className={styles.container}>
+      <label className={styles.container__input_wrap}>
+        {leftIcon}
+        <input className={styles.container__input} {...props} />
+      </label>
+      {rightIcon}
+    </div>
   )
 }
