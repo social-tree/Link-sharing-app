@@ -1,0 +1,76 @@
+@use "../../styles/typography.scss" as *;
+
+.header {
+
+    width: 100%;
+    height: 78px;
+    background: #fff;
+    padding: 16px 16px 16px 24px;
+    border-radius: 12px;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .nav {
+        width: max-content;
+        height: max-content;
+        display: flex;
+
+
+        &__a {
+            height: 46px;
+            width: 122px;
+            border-radius: 8px;
+            color: #737373;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+
+            &:nth-child(2) {
+                width: 187px;
+            }
+
+            @include heading-s;
+
+            &--active {
+                color: #633CFF;
+                background-color: #EFEBFF;
+
+                path {
+                    fill: #633CFF;
+                }
+            }
+        }
+
+        &__a--secondary {
+            max-width: 114px;
+            display: grid;
+            place-items: center;
+
+            color: #633CFF;
+            font-size: 16px;
+            font-weight: 600;
+
+            border-radius: 8px;
+            border: 1px solid #633CFF;
+
+            &:hover {
+                background: #EFEBFF;
+            }
+        }
+    }
+
+
+
+}
+
+
+@media (max-width: 768px){
+
+    
+
+
+}
