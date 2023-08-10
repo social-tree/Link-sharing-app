@@ -2,7 +2,7 @@
 
 import FileBase from 'react-file-base64'
 import { UploadImageIcon } from 'icons'
-import styles from './UploadImage.module.css'
+import styles from './UploadImage.module.scss'
 import { useState } from 'react'
 
 function UploadImage() {

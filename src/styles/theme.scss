@@ -1,0 +1,21 @@
+$purple: #633cff;
+$purple-hover: #beadff;
+$light-purple: #efebff;
+$dark-grey: #333333;
+$grey: #737373;
+$borders: #d9d9d9;
+$light-grey: #efebff;
+$white: #ffffff;
+$red: #ff3939;
+
+:export {
+  purple: $purple;
+  purpleHover: $purple-hover;
+  lightPurple: $light-purple;
+  darkGrey: $dark-grey;
+  grey: $grey;
+  borders: $borders;
+  lightGrey: $light-grey;
+  white: $white;
+  red: $red;
+}
