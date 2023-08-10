@@ -1,9 +1,15 @@
 import { IButtonProps } from './Button.types'
-import styles from './Button.module.css'
+import classNames from 'classnames'
+import styles from './Button.module.scss'
 
 function Button({ children, variant, ...props }: IButtonProps) {
+  const buttonClasses = classNames([styles.button], {
+    [styles['button--primary']]: variant === 'primary',
+    [styles['button--secondary']]: variant === 'secondary',
+  })
+
   return (
-    <button className={`${styles.button} ${styles[variant]}`} {...props}>
+    <button className={`${buttonClasses}`} {...props}>
       {children}
     </button>
   )

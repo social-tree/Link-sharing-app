@@ -1,5 +1,5 @@
-import './globals.css'
-import '@/styles/theme.css'
+import './globals.scss'
+import '@/styles/theme.scss'
 
 import { Instrument_Sans } from 'next/font/google'
 import type { Metadata } from 'next'
