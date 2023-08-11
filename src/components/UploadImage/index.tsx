@@ -30,4 +30,4 @@ function UploadImage() {
   )
 }
 
-export default UploadImage
+export { UploadImage }

@@ -29,6 +29,5 @@ const PlatformSchema = new Schema<PlatformDocument>({
 
 
 
-const Platform = models.Platform || model("Platform", PlatformSchema)
+export const Platform = models.Platform || model("Platform", PlatformSchema)
 
-export default Platform

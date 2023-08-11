@@ -1,4 +1,4 @@
-export { default as Button } from './shared/Button'
-export { default as UploadImage } from './UploadImage'
-export { default as Header } from './Header'
-export * from './shared/SimpleIcons'
+export { Button } from './shared/Button'
+export { UploadImage } from './UploadImage'
+export { Header } from './Header'
+export { SimpleIcons } from './shared/SimpleIcons'

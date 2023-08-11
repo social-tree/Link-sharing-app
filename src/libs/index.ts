@@ -1,1 +1,1 @@
-export { default as connectMongoDB } from "./connectMongoDB"
+export { connectMongoDB } from "./connectMongoDB"

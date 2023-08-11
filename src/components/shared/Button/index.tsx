@@ -15,4 +15,4 @@ function Button({ children, variant, ...props }: IButtonProps) {
   )
 }
 
-export default Button
+export { Button }
