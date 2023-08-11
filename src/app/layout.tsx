@@ -1,6 +1,7 @@
 import './globals.scss'
 import '@/styles/theme.scss'
 
+import { ILayoutProps } from '@/types'
 import { Instrument_Sans } from 'next/font/google'
 import type { Metadata } from 'next'
 
@@ -12,11 +13,9 @@ export const metadata: Metadata = {
     'Discover and share valuable developer links with DevLinks, the Next.js-powered app for developers.',
 }
 
-interface IProps {
-  children: React.ReactNode
-}
 
-export default function RootLayout({ children }: IProps) {
+
+export default function RootLayout({ children }: ILayoutProps) {
   return (
     <html lang="en">
       <body className={instrumentSans.className}>{children}</body>
