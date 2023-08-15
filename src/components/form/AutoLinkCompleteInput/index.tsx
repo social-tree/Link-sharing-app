@@ -1,15 +1,17 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { ChevronDownIcon } from '@/assets/icons'
 import { Controller } from 'react-hook-form'
 import { IAutoLinkCompleteInputProps } from './AutoLinkCompleteInput.types'
 import { Input } from '..'
 import { SimpleIcons } from '@/components/shared/SimpleIcons'
+import { Suggestions } from './Suggestions'
 import { TPlatformType } from '@/types'
 import classNames from 'classnames'
 import styles from './AutoLinkCompleteInput.module.scss'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 export const AutoLinkCompleteInput = ({
   links,
@@ -20,13 +22,21 @@ export const AutoLinkCompleteInput = ({
   ...props
 }: IAutoLinkCompleteInputProps) => {
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const [focusedIndex, setFocusedIndex] = useState(0)
-  const [selectedIndex, setSelectedIndex] = useState<number>(-1)
+  // the current focused suggestion
+  const [focusedItemIndex, setFocusedItemIndex] = useState(0)
+  // the current selected suggestion (-1 means nothing is selected)
+  const [selectedItemIndex, setSelectedItemIndex] = useState<number>(-1)
   const [filteredSuggestions, setFilteredSuggestions] = useState<
     TPlatformType[]
   >([])
 
   const ref: any = useRef()
+
+  const handleOutsideClick = () => {
+    setShowSuggestions(false)
+  }
+
+  useOutsideClick({ onOutsideClick: handleOutsideClick, containerRef: ref })
 
   const ChevArrowClasses = classNames({
     [styles.autocomplete__input_arrow]: true,
@@ -34,6 +44,7 @@ export const AutoLinkCompleteInput = ({
   })
 
   const handleSuggestionFiltering = (text?: string) => {
+    // filter suggestions based on the given text
     setFilteredSuggestions(
       links.filter(
         (link) => link?.name.toLowerCase().indexOf(`${text}`.toLowerCase()) > -1
@@ -42,22 +53,46 @@ export const AutoLinkCompleteInput = ({
   }
 
   const onInputChange = (text: string) => {
+    // reset filtering, focused link and selected link on text change
     handleSuggestionFiltering(text)
-    setFocusedIndex(0)
-    setSelectedIndex(-1)
+    setFocusedItemIndex(0)
+    setSelectedItemIndex(-1)
+    !showSuggestions && setShowSuggestions(true)
   }
 
   const handleSelectingItem = (item: any, index: number) => {
-    setSelectedIndex((prev) => (index === prev ? -1 : index))
+    // undo selection if the current selected item is selected again
+    setSelectedItemIndex((prev) => (index === prev ? -1 : index))
+    setShowSuggestions(false)
   }
 
-  useEffect(() => {
-    // if the user clisk outside the input/suggestions, we hide suggestions
-    const onClick = ({ target }: any) =>
-      !ref.current?.contains(target) && setShowSuggestions(false)
-    document.addEventListener('click', onClick)
-    return () => document.removeEventListener('click', onClick)
-  }, [])
+  const handleNavigation = (key: string, onChange: (item: string) => void) => {
+    // keyboard navigation (up/down with enter key)
+    if (key === 'ArrowDown')
+      setFocusedItemIndex((prev) =>
+        prev < filteredSuggestions.length - 1 ? prev + 1 : prev
+      )
+
+    if (key === 'ArrowUp')
+      setFocusedItemIndex((prev) => (prev > 0 ? prev - 1 : prev))
+
+    if (key == 'Enter') {
+      handleSelectingItem(
+        filteredSuggestions[focusedItemIndex],
+        focusedItemIndex
+      )
+
+      // convert link to json so it can be sent back, if the current selected link is selected again then it will clear value
+      onChange(
+        focusedItemIndex === selectedItemIndex
+          ? JSON.stringify({ value: '', selected: {} })
+          : JSON.stringify({
+              value: filteredSuggestions[focusedItemIndex].name,
+              selected: filteredSuggestions[focusedItemIndex],
+            })
+      )
+    }
+  }
 
   return (
     <Controller
@@ -69,13 +104,15 @@ export const AutoLinkCompleteInput = ({
           <div ref={ref} className={styles.autocomplete}>
             <Input
               name={name}
+              // check if the value has a selected link thats in JSON
               value={`${value?.includes('{') ? JSON?.parse(value)?.value : ``}`}
+              // only add a left icon if a value is selected
               leftIcon={
-                selectedIndex >= 0 &&
-                filteredSuggestions?.[selectedIndex]?.icon_name ? (
+                selectedItemIndex >= 0 &&
+                filteredSuggestions?.[selectedItemIndex]?.icon_name ? (
                   <SimpleIcons
                     size={16}
-                    name={`${filteredSuggestions?.[selectedIndex]?.icon_name}`}
+                    name={`${filteredSuggestions?.[selectedItemIndex]?.icon_name}`}
                   />
                 ) : null
               }
@@ -88,29 +125,9 @@ export const AutoLinkCompleteInput = ({
                 />
               }
               onKeyDown={(e) => {
-                if (e.key === 'ArrowDown')
-                  setFocusedIndex((prev) =>
-                    prev < filteredSuggestions.length - 1 ? prev + 1 : prev
-                  )
-
-                if (e.key === 'ArrowUp')
-                  setFocusedIndex((prev) => (prev > 0 ? prev - 1 : prev))
-
-                if (e.key == 'Enter') {
-                  handleSelectingItem(
-                    filteredSuggestions[focusedIndex],
-                    focusedIndex
-                  )
-                  onChange(
-                    focusedIndex === selectedIndex
-                      ? JSON.stringify({ value: '', selected: {} })
-                      : JSON.stringify({
-                          value: filteredSuggestions[focusedIndex].name,
-                          selected: filteredSuggestions[focusedIndex],
-                        })
-                  )
-                }
+                handleNavigation(e.key, onChange)
               }}
+              // show suggestions dropdown on focus
               onFocus={(e) => {
                 setShowSuggestions(true)
                 handleSuggestionFiltering(e.target.value)
@@ -118,40 +135,24 @@ export const AutoLinkCompleteInput = ({
               onBlur={onBlur}
               onChange={(e) => {
                 onInputChange(e.target.value)
+                // keep track of the user typed text in value and current selected link in selected
                 onChange(
                   JSON.stringify({
                     value: e.target.value,
-                    selected: filteredSuggestions[focusedIndex],
+                    selected: filteredSuggestions[focusedItemIndex],
                   })
                 )
               }}
               {...inputProps}
             />
             {showSuggestions && (
-              <ul className={styles.autocomplete__suggestions}>
-                {filteredSuggestions?.map((link, index) => {
-                  return (
-                    <li
-                      onKeyDown={(e) => console.log(e.key)}
-                      key={link.name}
-                      onClick={() => {
-                        handleSelectingItem(link, index)
-                        onChange(JSON.stringify(link))
-                      }}
-                      className={`${styles.autocomplete__suggestion_item} ${
-                        index === focusedIndex
-                          ? styles['autocomplete__suggestion_item--selected']
-                          : ''
-                      }`}
-                    >
-                      <SimpleIcons size={16} name={link.icon_name} />
-                      <span className={styles.autocomplete__suggestion_name}>
-                        {link.name}
-                      </span>
-                    </li>
-                  )
-                })}
-              </ul>
+              <Suggestions
+                focusedItemIndex={focusedItemIndex}
+                handleSelectingItem={handleSelectingItem}
+                suggestions={filteredSuggestions}
+                onChange={onChange}
+                value={value}
+              />
             )}
           </div>
           {error?.[name] && (
