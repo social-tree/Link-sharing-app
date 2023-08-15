@@ -13,8 +13,6 @@ export const metadata: Metadata = {
     'Discover and share valuable developer links with DevLinks, the Next.js-powered app for developers.',
 }
 
-
-
 export default function RootLayout({ children }: ILayoutProps) {
   return (
     <html lang="en">
