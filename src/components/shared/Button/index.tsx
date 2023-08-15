@@ -2,7 +2,7 @@ import { IButtonProps } from './Button.types'
 import classNames from 'classnames'
 import styles from './Button.module.scss'
 
-function Button({ children, variant, ...props }: IButtonProps) {
+export function Button({ children, variant, ...props }: IButtonProps) {
   const buttonClasses = classNames([styles.button], {
     [styles['button--primary']]: variant === 'primary',
     [styles['button--secondary']]: variant === 'secondary',
@@ -15,4 +15,3 @@ function Button({ children, variant, ...props }: IButtonProps) {
   )
 }
 
-export { Button }

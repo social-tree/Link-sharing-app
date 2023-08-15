@@ -5,7 +5,7 @@ import { UploadImageIcon } from 'icons'
 import styles from './UploadImage.module.scss'
 import { useState } from 'react'
 
-function UploadImage() {
+export function UploadImage() {
   const [file, setFile] = useState('')
 
   return (
@@ -30,4 +30,3 @@ function UploadImage() {
   )
 }
 
-export { UploadImage }

@@ -6,7 +6,7 @@ import Link from 'next/link'
 import styles from './Header.module.scss'
 import { usePathname } from 'next/navigation'
 
-function Header() {
+export function Header() {
   const pathname = usePathname()
 
   const activeRouteClass = (path: string) => pathname === path ? styles['nav__a--active'] : ''
@@ -41,4 +41,3 @@ function Header() {
   )
 }
 
-export { Header }
