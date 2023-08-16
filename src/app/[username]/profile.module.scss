@@ -1,0 +1,64 @@
+@use '@/styles/theme.scss' as *;
+@use '@/styles/typography.scss' as *;
+
+.profile_container {
+  display: flex;
+  justify-content: center;
+  min-height: 100%;
+  position: relative;
+  font-family: inherit;
+
+  &__wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 25px;
+    margin: 200px 0px 50px 0px;
+    padding: 48px 56px;
+    border-radius: 24px;
+    background-color: $white;
+    box-shadow: 0px 0px 32px 0px rgba(0, 0, 0, 0.1);
+    max-width: 349px;
+    width: 100%;
+    height: fit-content;
+  }
+
+  &__background {
+    top: 0px;
+    width: 100%;
+    position: absolute;
+    flex: 1;
+    height: 357px;
+    align-self: flex-start;
+    background-color: $purple;
+    border-radius: 0px 0px 32px 32px;
+  }
+
+  &__img {
+    width: 104px;
+    height: 104px;
+    object-fit: cover;
+    border-radius: 50%;
+    background-color: $purple;
+    padding: 5px;
+  }
+
+  &__name {
+    color: $dark-grey;
+    @include heading-m;
+  }
+
+  &__email {
+    color: $grey;
+    @include body-m;
+  }
+
+  &__socialButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    margin-top: 25px;
+  }
+}

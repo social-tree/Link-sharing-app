@@ -77,6 +77,10 @@ p {
   font-weight: 400;
 }
 
+a {
+  text-decoration: none;
+}
+
 .link {
   color: $purple;
   text-decoration: none;
@@ -87,4 +91,10 @@ fieldset,
 button {
   border: unset;
   outline: unset;
+}
+
+@mixin body-without-padding {
+  body {
+    padding: 0px !important;
+  }
 }
