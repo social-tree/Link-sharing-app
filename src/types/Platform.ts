@@ -4,3 +4,5 @@ export type TPlatformType = {
   regex: string
   background_color: string
 }
+
+export type TPlatformTypeWithLink = TPlatformType & { link: string }
