@@ -12,3 +12,4 @@ export { default as ProfileDetailsHeaderIcon } from "./icon-profile-details-head
 export { default as UploadImageIcon } from "./icon-upload-image.svg";
 export { default as LargeLogo } from "./logo-devlinks-large.svg";
 export { default as SmallLogo } from "./logo-devlinks-small.svg";
+export { default as ArrowBackIcon } from "./icon-arrow-back.svg";

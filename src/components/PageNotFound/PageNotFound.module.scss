@@ -1,0 +1,56 @@
+@use "@/styles/theme.scss" as *;
+@use "@/styles/typography.scss" as *;
+
+.page-not-found {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 54px;
+    inset: 0;
+    position: fixed;
+    background: url("/images/page-not-found-bg-left.svg") top left no-repeat, url("/images/page-not-found-bg-right.svg") bottom right no-repeat, #fff;
+    background-size: 400px;
+
+    &__content {
+        width: 30vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+
+        &__link {
+            height: 40px;
+            width: 141px;
+            color: #fff;
+            background: $purple;
+            text-decoration: none;
+            @include heading-s;
+
+
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            justify-content: center;
+            gap: 8px;
+
+            path {
+                stroke: #fff;
+            }
+
+
+            &:focus-visible {
+                outline: 1px dashed $purple;
+                outline-offset: 2px;
+            }
+        }
+    }
+
+
+    &__lottie-animation {
+        width: clamp(65vw, 80vh, 100%);
+        height: clamp(70vh, 65vh, 65vh);
+    }
+
+}
