@@ -1,3 +1,5 @@
+@import '@/styles/theme.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -41,9 +43,9 @@ html {
 
 body {
   width: 100vw;
-  min-height: 100vh;
+  height: 100vh;
   padding: 24px;
-  background-color: #fafafa;
+  background-color: $light-grey;
   color: #333;
 }
 
@@ -73,6 +75,11 @@ h6 {
 p {
   font-size: 12px;
   font-weight: 400;
+}
+
+.link {
+  color: $purple;
+  text-decoration: none;
 }
 
 input,

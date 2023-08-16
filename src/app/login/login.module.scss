@@ -1,0 +1,62 @@
+@import '@/styles/theme.scss';
+@import '@/styles/typography.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 58px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  &__auth_form {
+    background-color: $white;
+    padding: 40px;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+    max-width: 482px;
+    width: 100%;
+    margin: 0px 20px;
+    border-radius: 12px;
+  }
+  &__about_auth {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  &__password_description {
+    color: $grey;
+    @include body-s;
+  }
+
+  &__title {
+    @include heading-m;
+    color: $dark-grey;
+  }
+
+  &__description {
+    @include body-m;
+    color: $grey;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .auth_description {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 3px;
+    color: $grey;
+
+    @include body-m;
+  }
+}
