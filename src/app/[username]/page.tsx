@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { Button } from '@/components'
 import Image from 'next/image'
 import Link from 'next/link'
+import { SocialMediaButton } from '@/components/shared/SocialMediaButton'
 import { TPlatformTypeWithLink } from '@/types/Platform'
 import styles from './profile.module.scss'
 
@@ -54,15 +55,13 @@ const Profile = () => {
         <h4 className={styles.profile_container__email}>ben@example.com</h4>
         <div className={styles.profile_container__socialButtons}>
           {platforms.map((platform) => (
-            <Link href={platform.link}>
-              <Button
-                backgroundColor={platform.background_color}
-                socialIcon={platform.icon_name}
-                variant="socialMedia"
-              >
-                {platform.name}
-              </Button>
-            </Link>
+            <SocialMediaButton
+              backgroundColor={platform.background_color}
+              socialIcon={platform.icon_name}
+              link={platform.link}
+            >
+              {platform.name}
+            </SocialMediaButton>
           ))}
         </div>
       </div>
