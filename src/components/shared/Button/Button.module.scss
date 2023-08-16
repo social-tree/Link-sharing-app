@@ -1,5 +1,5 @@
-@import '@/styles/typography.scss';
 @use '@/styles/theme.scss' as *;
+@import '@/styles/typography.scss';
 
 .button {
   background: transparent;
@@ -40,19 +40,5 @@
       border: 1px solid $purple;
       opacity: 0.25;
     }
-  }
-
-  &--socialMedia {
-    color: $white;
-    width: 100%;
-    padding: 16px;
-    align-items: center;
-    height: 56px;
-    @include body-m;
-  }
-
-  &__socialArrow {
-    margin-left: auto;
-    @include body-m;
   }
 }

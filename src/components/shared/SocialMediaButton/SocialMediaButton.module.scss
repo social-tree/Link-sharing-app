@@ -1,0 +1,22 @@
+@use '@/styles/typography.scss' as *;
+@use '@/styles/theme.scss' as *;
+
+.social_media_button {
+  display: flex;
+  padding: 16px;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  color: $white;
+  width: 100%;
+  padding: 16px;
+  height: 56px;
+  border-radius: 8px;
+  font-family: inherit;
+  @include body-m;
+
+  &__socialArrow {
+    margin-left: auto;
+    @include body-m;
+  }
+}
