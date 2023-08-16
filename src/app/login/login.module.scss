@@ -9,7 +9,7 @@
   justify-content: center;
   height: 100%;
 
-  &__login_form {
+  &__auth_form {
     background-color: $white;
     padding: 40px;
     display: flex;
@@ -20,11 +20,16 @@
     margin: 0px 20px;
     border-radius: 12px;
   }
-  &__about_login {
+  &__about_auth {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 16px;
+  }
+
+  &__password_description {
+    color: $grey;
+    @include body-s;
   }
 
   &__title {
