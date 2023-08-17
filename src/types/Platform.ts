@@ -5,4 +5,4 @@ export type TPlatformType = {
   background_color: string
 }
 
-export type TPlatformTypeWithLink = TPlatformType & { link: string }
+export type TPlatformTypeWithLink = TPlatformType & { url: string }
