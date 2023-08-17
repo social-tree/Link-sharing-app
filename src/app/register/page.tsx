@@ -4,7 +4,7 @@ import { EmailIcon, LargeLogo, PasswordIcon } from '@/assets/icons'
 
 import { Button } from '@/components'
 import { IRegisterFormValues } from './register.types'
-import { Input } from '@/components/form'
+import { Input } from '@/components'
 import Link from 'next/link'
 import React from 'react'
 import styles from '@/app/login/login.module.scss'

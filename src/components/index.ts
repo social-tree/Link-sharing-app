@@ -1,4 +1,6 @@
 export { Button } from './shared/Button'
-export { UploadImage } from './UploadImage'
+export { UploadImage } from './form/UploadImage'
 export { Header } from './Header'
 export { SimpleIcons } from './shared/SimpleIcons'
+export { Input } from './form/Input'
+export { AutoLinkCompleteInput } from './form/AutoLinkCompleteInput'
