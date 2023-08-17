@@ -16,21 +16,21 @@ const Profile = () => {
       icon_name: 'SiGithub',
       name: 'GitHub',
       regex: '',
-      link: 'https://github.com/',
+      url: 'https://github.com/',
     },
     {
       background_color: '#EE3939',
       icon_name: 'SiYoutube',
       name: 'YouTube',
       regex: '',
-      link: 'https://youtube.com/',
+      url: 'https://youtube.com/',
     },
     {
       background_color: '#2D68FF',
       icon_name: 'SiLinkedin',
       name: 'LinkedIn',
       regex: '',
-      link: 'https://linkedin.com/',
+      url: 'https://linkedin.com/',
     },
   ])
 
