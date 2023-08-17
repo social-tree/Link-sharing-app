@@ -58,7 +58,7 @@ const Profile = () => {
             <SocialMediaButton
               backgroundColor={platform.background_color}
               socialIcon={platform.icon_name}
-              link={platform.link}
+              link={platform.url}
             >
               {platform.name}
             </SocialMediaButton>
