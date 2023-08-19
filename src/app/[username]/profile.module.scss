@@ -61,4 +61,16 @@
     width: 100%;
     margin-top: 25px;
   }
+
+  @media only screen and (max-width: 375px) {
+    &__wrap {
+      box-shadow: none;
+      margin-top: 100px;
+      background-color: $light-grey;
+      padding: 0px 49px;
+    }
+    &__background {
+      display: none;
+    }
+  }
 }
