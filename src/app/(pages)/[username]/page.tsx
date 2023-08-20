@@ -32,27 +32,6 @@ const Profile = () => {
       regex: '',
       url: 'https://linkedin.com/',
     },
-    {
-      background_color: '#333333',
-      icon_name: 'SiDevdotto',
-      name: 'Dev.to',
-      regex: '',
-      url: 'https://dev.to/',
-    },
-    {
-      background_color: '#8A1A50',
-      icon_name: 'SiCodewars',
-      name: 'Codewars',
-      regex: '',
-      url: 'https://codewars.com/',
-    },
-    {
-      background_color: '#302267',
-      icon_name: 'SiFreecodecamp',
-      name: 'FreeCodeCamp',
-      regex: '',
-      url: 'https://freecodecamp.com/',
-    },
   ])
 
   return (
@@ -68,7 +47,7 @@ const Profile = () => {
           width={104}
           height={104}
           alt="profile-image"
-          src={'https://i.imgur.com/bHRWEAr.jpg'}
+          src={'https://i.imgur.com/J9LeqZu.jpg'}
           className={styles.profile_container__img}
           priority={true}
         />
