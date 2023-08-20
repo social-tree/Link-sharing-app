@@ -1,37 +1,35 @@
 'use client'
 
-import { EmailIcon, LargeLogo, PasswordIcon } from '@/assets/icons'
+import { EmailIcon, PasswordIcon } from '@/assets/icons'
 
 import { Button } from '@/components'
-import { IRegisterFormValues } from './register.types'
+import { ILoginFormValues } from './login.types'
 import { Input } from '@/components'
 import Link from 'next/link'
-import React from 'react'
-import styles from '@/app/login/login.module.scss'
+import styles from '../auth.module.scss'
 import { useForm } from 'react-hook-form'
 
-const Register = () => {
+const Login = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IRegisterFormValues>()
+    watch,
+  } = useForm<ILoginFormValues>()
 
-  const handleLoginSubmit = (data: IRegisterFormValues) => {
+  const handleLoginSubmit = (data: ILoginFormValues) => {
     console.log(data)
   }
 
   return (
-    <div className={styles.container}>
-      <LargeLogo />
       <form
         onSubmit={handleSubmit(handleLoginSubmit)}
         className={styles.container__auth_form}
       >
         <div className={styles.container__about_auth}>
-          <h3 className={styles.container__title}>Create account</h3>
+          <h3 className={styles.container__title}>Login</h3>
           <p className={styles.container__description}>
-            Let’s get you started sharing your links!
+            Add your details below to get back into the app
           </p>
         </div>
         <div className={styles.container__inputs}>
@@ -46,31 +44,20 @@ const Register = () => {
           <Input
             error={errors}
             leftIcon={<PasswordIcon />}
-            placeholder="At least 8 characters"
-            label="Create password"
+            placeholder="Enter your password"
+            label="Password"
             {...register('password', { required: 'Please check again' })}
           />
-          <Input
-            error={errors}
-            leftIcon={<PasswordIcon />}
-            placeholder="At least 8 characters"
-            label="Confirm password"
-            {...register('confirmPassword', { required: 'Please check again' })}
-          />
         </div>
-        <span className={styles.container__password_description}>
-          Password must contain at least 8 characters
-        </span>
         <Button variant="primary">Login</Button>
         <span className={styles.auth_description}>
-          Already have an account?{' '}
-          <Link className={'link'} href="/login">
-            Login
+          Don't have an account?{' '}
+          <Link className={'link'} href="/register">
+            Create account
           </Link>
         </span>
       </form>
-    </div>
   )
 }
 
-export default Register
+export default Login
