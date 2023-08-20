@@ -99,69 +99,74 @@ export const AutoLinkCompleteInput = ({
       name={name}
       control={control}
       {...props}
-      render={({ field: { name, onBlur, onChange, value } }) => (
-        <div>
-          <div ref={ref} className={styles.autocomplete}>
-            <Input
-              name={name}
-              // check if the value has a selected link thats in JSON
-              value={`${value?.includes('{') ? JSON?.parse(value)?.value : ``}`}
-              // only add a left icon if a value is selected
-              leftIcon={
-                selectedItemIndex >= 0 &&
-                filteredSuggestions?.[selectedItemIndex]?.icon_name ? (
-                  <SimpleIcons
-                    size={16}
-                    name={`${filteredSuggestions?.[selectedItemIndex]?.icon_name}`}
+      render={({ field: { name, onBlur, onChange, value } }) => {
+        const parsedValue = `${
+          value?.includes('{') ? JSON?.parse(value)?.value : ``
+        }`
+        const selectedIcon =
+          filteredSuggestions?.[selectedItemIndex]?.icon_name || ''
+
+        return (
+          <div>
+            <div ref={ref} className={styles.autocomplete}>
+              <Input
+                name={name}
+                // check if the value has a selected link thats in JSON
+                value={parsedValue}
+                // only add a left icon if a value is selected
+                leftIcon={
+                  selectedItemIndex >= 0 && selectedIcon ? (
+                    <SimpleIcons size={16} name={selectedIcon} />
+                  ) : null
+                }
+                rightIcon={
+                  <ChevronDownIcon
+                    onClick={() => {
+                      setShowSuggestions((prev) => (prev ? false : true))
+                      handleSuggestionFiltering(parsedValue)
+                    }}
+                    className={ChevArrowClasses}
                   />
-                ) : null
-              }
-              rightIcon={
-                <ChevronDownIcon
-                  onClick={() =>
-                    setShowSuggestions((prev) => (prev ? false : true))
-                  }
-                  className={ChevArrowClasses}
-                />
-              }
-              onKeyDown={(e) => {
-                handleNavigation(e.key, onChange)
-              }}
-              // show suggestions dropdown on focus
-              onFocus={(e) => {
-                setShowSuggestions(true)
-                handleSuggestionFiltering(e.target.value)
-              }}
-              onBlur={onBlur}
-              onChange={(e) => {
-                onInputChange(e.target.value)
-                // keep track of the user typed text in value and current selected link in selected
-                onChange(
-                  JSON.stringify({
-                    value: e.target.value,
-                    selected: filteredSuggestions[focusedItemIndex],
-                  })
-                )
-              }}
-              {...inputProps}
-            />
-            {showSuggestions && (
-              <Suggestions
-                focusedItemIndex={focusedItemIndex}
-                handleSelectingItem={handleSelectingItem}
-                suggestions={filteredSuggestions}
-                onChange={onChange}
-                value={value}
+                }
+                onKeyDown={(e) => {
+                  handleNavigation(e.key, onChange)
+                }}
+                // show suggestions dropdown on focus
+                onFocus={(e) => {
+                  setShowSuggestions(true)
+                  handleSuggestionFiltering(e.target.value)
+                }}
+                onBlur={onBlur}
+                onChange={(e) => {
+                  onInputChange(e.target.value)
+                  // keep track of the user typed text in value and current selected link in selected
+                  onChange(
+                    JSON.stringify({
+                      value: e.target.value,
+                      selected: filteredSuggestions[focusedItemIndex],
+                    })
+                  )
+                }}
+                {...inputProps}
               />
+              {showSuggestions && (
+                <Suggestions
+                  focusedItemIndex={focusedItemIndex}
+                  handleSelectingItem={handleSelectingItem}
+                  suggestions={filteredSuggestions}
+                  onChange={onChange}
+                  value={value}
+                />
+              )}
+            </div>
+            {error?.[name] && (
+              <span className={styles.autocomplete__error}>
+                {error?.[name].message}
+              </span>
             )}
           </div>
-          {error?.[name] && (
-            <span className={styles.autocomplete__error}>
-              {error?.[name].message}
-            </span>
-          )}
-        </div>
-      )}
+        )
+      }}
     />
   )
 }

@@ -4,14 +4,19 @@ import { SimpleIcons } from '../SimpleIcons'
 import classNames from 'classnames'
 import styles from './Button.module.scss'
 
-export function Button({ children, variant, ...props }: IButtonProps) {
+export function Button({
+  children,
+  variant,
+  className,
+  ...props
+}: IButtonProps) {
   const buttonClasses = classNames([styles.button], {
     [styles['button--primary']]: variant === 'primary',
     [styles['button--secondary']]: variant === 'secondary',
   })
 
   return (
-    <button className={`${buttonClasses}`} {...props}>
+    <button className={`${buttonClasses} ${className}`} {...props}>
       {children}
     </button>
   )
