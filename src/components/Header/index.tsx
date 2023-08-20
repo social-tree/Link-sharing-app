@@ -60,13 +60,13 @@ export const Header = ({ className, ...props }: IHeaderProps) => {
         <nav className={styles.non_auth_nav}>
           <Link
             className={`${styles.nav__a} ${styles['nav__a--primary']}`}
-            href="/preview"
+            href="/login"
           >
             Login
           </Link>
           <Link
             className={`${styles.nav__a} ${styles['nav__a--secondary']}`}
-            href="/preview"
+            href="/register"
           >
             Sign up
           </Link>
