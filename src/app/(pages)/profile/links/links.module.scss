@@ -1,0 +1,35 @@
+@use "@/styles/typography" as *;
+@use "@/styles/theme" as *;
+
+.links {
+    height: 739px;
+    width: 100%;
+    padding: 40px;
+
+    &__description {
+        @include body-m;
+        color: $grey;
+        margin-top: 8px;
+    }
+
+    &__button--add {
+        width: 100%;
+        margin: 40px 0 24px 0;
+    
+    }
+
+
+    &__platforms {
+        max-height: 480px;
+        width: 100%;
+        display: grid;
+        gap: 24px;
+
+
+        &__platform {
+            width: 100%;
+            height: 228px;
+            background: $light-grey;
+        }
+    }
+}
