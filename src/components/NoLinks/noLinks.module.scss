@@ -1,0 +1,28 @@
+@use "@/styles/theme" as *;
+@use "@/styles/typography" as *;
+
+.no_links {
+    height: 469px;
+    width: 100%;
+    background: $light-grey;
+    padding: 20px;
+    display: grid;
+    place-items: center;
+    gap: 24px;
+    text-align: center;
+    border-radius: 12px;
+
+
+    &__title {
+        margin-top: 16px;
+        @include heading-m;
+    }
+
+
+    &__description {
+        @include body-m;
+        color: $grey;
+        max-width: 488px;
+
+    }
+} 
