@@ -1,13 +1,16 @@
+"use client"
+
 import React, { Fragment } from 'react'
 
+import { DataProvider } from '@/Contexts'
 import { Header } from '@/components'
 import { ILayoutProps } from '@/types'
 
 const PagesLayout = ({ children }: ILayoutProps) => {
   return (
     <Fragment>
-        <Header />
-        {children}  
+      <Header />
+      <DataProvider>{children}</DataProvider>
     </Fragment>
   )
 }
