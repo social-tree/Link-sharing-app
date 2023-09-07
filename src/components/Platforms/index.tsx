@@ -1,11 +1,10 @@
-"use client";
+'use client'
 
-import { Platform } from "./Platform"
+import { Platform } from './Platform'
 import styles from './Platforms.module.scss'
-import { useDataContext } from "@/Contexts"
+import { useDataContext } from '@/Contexts'
 
 export function Platforms() {
-
   const { fields } = useDataContext()
 
   return (

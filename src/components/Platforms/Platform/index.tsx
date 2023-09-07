@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import { AutoLinkCompleteInput, Input } from '@/components'
 
@@ -7,8 +7,7 @@ import { TPlatformType } from '@/types'
 import styles from './Platform.module.scss'
 import { useDataContext } from '@/Contexts'
 
-export function Platform({ i }: any) {
-  
+export function Platform({ i, field }: any) {
   const { control, platforms, register, remove } = useDataContext()
 
   return (
@@ -18,11 +17,21 @@ export function Platform({ i }: any) {
           <DragAndDropIcon />
           <p>Link #{i}</p>
         </div>
-        <button onClick={() => remove(i)} className={styles.platform__section__button}>Remove</button>
+        <button
+          onClick={() => remove(i)}
+          className={styles.platform__section__button}
+        >
+          Remove
+        </button>
       </section>
       <fieldset className={styles.platform__fieldset}>
         <label className={styles.platform__fieldset__label}>Platform</label>
-        <AutoLinkCompleteInput control={control} name={`Link #${i}`} links={platforms} />
+        <AutoLinkCompleteInput
+          control={control}
+          name={`Link #${i}`}
+          links={platforms}
+          defaultValue={field.platform}
+        />
       </fieldset>
       <fieldset className={styles.platform__fieldset}>
         <label className={styles.platform__fieldset__label}>Link</label>
