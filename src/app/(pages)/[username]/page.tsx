@@ -1,16 +1,15 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 
-import { Button } from '@/components'
+import { DataContext } from '@/Contexts/DataProvider'
 import Image from 'next/image'
-import Link from 'next/link'
-import { SocialMediaButton } from '@/components/shared/SocialMediaButton'
-import { TPlatformTypeWithLink } from '@/types/Platform'
 import styles from './profile.module.scss'
+import { usePathname } from 'next/navigation'
+import { userType } from '@/types/user'
 
 const Profile = () => {
-  const [platforms, setPlatforms] = useState<TPlatformTypeWithLink[]>([
+  /*   const [platforms, setPlatforms] = useState<TPlatformTypeWithLink[]>([
     {
       background_color: '#1A1A1A',
       icon_name: 'SiGithub',
@@ -32,7 +31,27 @@ const Profile = () => {
       regex: '',
       url: 'https://linkedin.com/',
     },
-  ])
+  ]) */
+  const pathname = usePathname()
+
+  const [userInfo, setUserInfo] = useState<userType | null>(null)
+
+  const fullname = useMemo(
+    () =>
+      userInfo?.first_name && userInfo?.last_name
+        ? `${userInfo?.first_name} ${userInfo?.last_name}`
+        : ``,
+    [userInfo?.first_name, userInfo?.last_name]
+  )
+
+  const { user } = useContext(DataContext)
+
+  useEffect(() => {
+    if (pathname === '/preview') {
+      setUserInfo(user)
+    } else {
+    }
+  }, [pathname, user])
 
   return (
     <div className={styles.profile_container}>
@@ -47,14 +66,16 @@ const Profile = () => {
           width={104}
           height={104}
           alt="profile-image"
-          src={'https://i.imgur.com/J9LeqZu.jpg'}
+          src={user?.avatar ? `${user?.avatar}` : ``}
           className={styles.profile_container__img}
           priority={true}
         />
-        <h1 className={styles.profile_container__name}>Ben Wright</h1>
+        <h1 className={styles.profile_container__name}>
+          {fullname ? fullname : userInfo?.nickname}
+        </h1>
         <h4 className={styles.profile_container__email}>ben@example.com</h4>
         <div className={styles.profile_container__socialButtons}>
-          {platforms.map((platform) => (
+          {/* {platforms.map((platform) => (
             <SocialMediaButton
               backgroundColor={platform.background_color}
               socialIcon={platform.icon_name}
@@ -62,7 +83,7 @@ const Profile = () => {
             >
               {platform.name}
             </SocialMediaButton>
-          ))}
+          ))} */}
         </div>
       </div>
     </div>

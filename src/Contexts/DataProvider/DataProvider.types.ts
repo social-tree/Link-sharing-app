@@ -1,28 +1,29 @@
-import { Control, FieldValues } from 'react-hook-form'
+import { Control } from 'react-hook-form'
+import { Session } from '@supabase/supabase-js'
+import { TPlatformType } from '@/types/Platform'
+import { userType } from '@/types/user'
 
-import { TPlatformType } from '@/types'
-
-export type TControl = Control<{
-  links: ILink[];
-  firstName: string;
-  lastName: string;
-  email: string;
-  profileImage: string;
-}, any>
-
-
-export interface IPlatform extends TPlatformType {
-  url: string
-}
+export type TControl = Control<
+  {
+    links: ILink[]
+    firstName: string
+    lastName: string
+    email: string
+    profileImage: string
+  },
+  any
+>
 
 export interface IDataContext {
-  addLink: () => void
+  /*   addLink: () => void */
   remove: (index: number) => void
-  platforms: IPlatform[]
+  platforms: TPlatformType[]
   control: TControl
+  user: userType | null
+  session: Session | null
 }
 
 export interface ILink {
   url: string
-  platform: IPlatform
+  platform: TPlatformType
 }

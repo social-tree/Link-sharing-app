@@ -9,7 +9,9 @@ const nextConfig = {
   },
 
   images: {
-    domains: ["i.imgur.com"]
+    domains: ["api.dicebear.com"],
+    loader: "custom",
+    loaderFile: "./src/libs/imageLoader.ts"
   }
 };
 

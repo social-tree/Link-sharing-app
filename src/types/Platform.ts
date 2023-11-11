@@ -1,8 +1,5 @@
-export type TPlatformType = {
-  icon_name: string
-  name: string
-  regex: string
-  background_color: string
-}
+import { Database } from './supabase'
+
+export type TPlatformType = Database['public']['Tables']['platforms']['Row']
 
 export type TPlatformTypeWithLink = TPlatformType & { url: string }

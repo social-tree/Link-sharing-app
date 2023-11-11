@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import React, { Fragment } from 'react'
 
@@ -9,7 +9,6 @@ import { ILayoutProps } from '@/types'
 const PagesLayout = ({ children }: ILayoutProps) => {
   return (
     <Fragment>
-      <Header />
       <DataProvider>{children}</DataProvider>
     </Fragment>
   )
