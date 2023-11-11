@@ -7,14 +7,17 @@ import {
   SmallLogo,
 } from 'icons'
 
+import { DataContext } from '@/Contexts/DataProvider'
 import { IHeaderProps } from './Header.types'
 import Link from 'next/link'
 import styles from './Header.module.scss'
+import { useContext } from 'react'
 import { usePathname } from 'next/navigation'
 
 export const Header = ({ className, ...props }: IHeaderProps) => {
   const pathname = usePathname()
-  const loggedIn = false
+  const { session } = useContext(DataContext)
+  const loggedIn = !!session
 
   const activeRouteClass = (path: string) =>
     pathname === path ? styles['nav__a--active'] : ''
@@ -31,7 +34,7 @@ export const Header = ({ className, ...props }: IHeaderProps) => {
               className={`${styles.nav__a} ${activeRouteClass(
                 '/profile/links'
               )}`}
-              href="/"
+              href="/profile/links"
             >
               <LinksHeaderIcon />
               Links
@@ -40,7 +43,7 @@ export const Header = ({ className, ...props }: IHeaderProps) => {
               className={`${styles.nav__a} ${activeRouteClass(
                 '/profile/details'
               )}`}
-              href="/profile_details"
+              href="/profile/details"
             >
               <ProfileDetailsHeaderIcon />
               Profile Details

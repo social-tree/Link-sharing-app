@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
 interface ILayoutProps {
-    children: ReactNode
+  children: any
 }
 
 export type { ILayoutProps }

@@ -19,6 +19,7 @@ export const AutoLinkCompleteInput = ({
   control,
   inputProps,
   error,
+  defaultValue,
   ...props
 }: IAutoLinkCompleteInputProps) => {
   const [showSuggestions, setShowSuggestions] = useState(false)
@@ -99,9 +100,12 @@ export const AutoLinkCompleteInput = ({
       name={name}
       control={control}
       {...props}
+      defaultValue={JSON.stringify(defaultValue)}
       render={({ field: { name, onBlur, onChange, value } }) => {
         const parsedValue = `${
-          value?.includes('{') ? JSON?.parse(value)?.value : ``
+          value?.includes('{')
+            ? JSON?.parse(value)?.value || JSON.parse(value).name || ''
+            : ``
         }`
         const selectedIcon =
           filteredSuggestions?.[selectedItemIndex]?.icon_name || ''
