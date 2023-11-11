@@ -37,7 +37,7 @@ Users should be able to:
 
 - [Next.JS](https://nextjs.org/) - React framework
 - [Sass](https://sass-lang.com/) - Styling
-- [Mongodb](https://www.mongodb.com/) - Database
+- [Supabase](https://www.supabase.com/) - Database
 
 
 ## Authors
