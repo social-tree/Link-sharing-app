@@ -6,8 +6,7 @@ import styles from './links.module.scss'
 import { useDataContext } from '@/Contexts'
 
 function Links() {
-
-  const { fields, addLink } = useDataContext()
+  const { fields, addLink, notUsedPlatforms } = useDataContext()
 
   return (
     <div className={styles.links}>
@@ -16,11 +15,16 @@ function Links() {
         Add/edit/remove links below and then share all your profiles with the
         world!
       </p>
-      <Button onClick={addLink} className={styles['links__button--add']} variant="secondary">
+      <Button
+        onClick={addLink}
+        disabled={!notUsedPlatforms[0]}
+        className={`${styles['links__button--add']}`}
+        variant="secondary"
+      >
         + Add new link
       </Button>
-      
-      {fields.length == 0 ? ( <NoLinks />) : <Platforms /> }
+
+      {fields?.length == 0 ? <NoLinks /> : <Platforms />}
     </div>
   )
 }

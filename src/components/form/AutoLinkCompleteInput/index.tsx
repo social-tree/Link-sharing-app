@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import { ChevronDownIcon } from '@/assets/icons'
 import { Controller } from 'react-hook-form'
@@ -12,6 +12,7 @@ import { TPlatformType } from '@/types'
 import classNames from 'classnames'
 import styles from './AutoLinkCompleteInput.module.scss'
 import { useOutsideClick } from '@/hooks/useOutsideClick'
+import { TPlatformTypeWithSeperateLink } from '@/types/Platform'
 
 export const AutoLinkCompleteInput = ({
   links,
@@ -31,6 +32,8 @@ export const AutoLinkCompleteInput = ({
     TPlatformType[]
   >([])
 
+  const [searchValue, setSearchValue] = useState('')
+
   const ref: any = useRef()
 
   const handleOutsideClick = () => {
@@ -48,26 +51,37 @@ export const AutoLinkCompleteInput = ({
     // filter suggestions based on the given text
     setFilteredSuggestions(
       links.filter(
-        (link) => link?.name.toLowerCase().indexOf(`${text}`.toLowerCase()) > -1
+        (link) =>
+          link?.name &&
+          link?.name.toLowerCase().indexOf(`${text}`.toLowerCase()) > -1
       )
     )
   }
+
+  useEffect(() => {
+    setSearchValue(defaultValue?.name)
+  }, [defaultValue])
 
   const onInputChange = (text: string) => {
     // reset filtering, focused link and selected link on text change
     handleSuggestionFiltering(text)
     setFocusedItemIndex(0)
     setSelectedItemIndex(-1)
+    setSearchValue(text)
     !showSuggestions && setShowSuggestions(true)
   }
 
   const handleSelectingItem = (item: any, index: number) => {
     // undo selection if the current selected item is selected again
     setSelectedItemIndex((prev) => (index === prev ? -1 : index))
+
     setShowSuggestions(false)
   }
 
-  const handleNavigation = (key: string, onChange: (item: string) => void) => {
+  const handleNavigation = (
+    key: string,
+    onChange: (item: TPlatformTypeWithSeperateLink) => void
+  ) => {
     // keyboard navigation (up/down with enter key)
     if (key === 'ArrowDown')
       setFocusedItemIndex((prev) =>
@@ -82,16 +96,11 @@ export const AutoLinkCompleteInput = ({
         filteredSuggestions[focusedItemIndex],
         focusedItemIndex
       )
-
-      // convert link to json so it can be sent back, if the current selected link is selected again then it will clear value
-      onChange(
-        focusedItemIndex === selectedItemIndex
-          ? JSON.stringify({ value: '', selected: {} })
-          : JSON.stringify({
-              value: filteredSuggestions[focusedItemIndex].name,
-              selected: filteredSuggestions[focusedItemIndex],
-            })
-      )
+      onChange({
+        url: ``,
+        platform: filteredSuggestions[focusedItemIndex],
+      })
+      setSearchValue(`${filteredSuggestions[focusedItemIndex]?.name}`)
     }
   }
 
@@ -102,11 +111,6 @@ export const AutoLinkCompleteInput = ({
       {...props}
       defaultValue={JSON.stringify(defaultValue)}
       render={({ field: { name, onBlur, onChange, value } }) => {
-        const parsedValue = `${
-          value?.includes('{')
-            ? JSON?.parse(value)?.value || JSON.parse(value).name || ''
-            : ``
-        }`
         const selectedIcon =
           filteredSuggestions?.[selectedItemIndex]?.icon_name || ''
 
@@ -116,18 +120,20 @@ export const AutoLinkCompleteInput = ({
               <Input
                 name={name}
                 // check if the value has a selected link thats in JSON
-                value={parsedValue}
+                value={searchValue}
                 // only add a left icon if a value is selected
                 leftIcon={
                   selectedItemIndex >= 0 && selectedIcon ? (
                     <SimpleIcons size={16} name={selectedIcon} />
+                  ) : defaultValue ? (
+                    <SimpleIcons size={16} name={defaultValue.icon_name} />
                   ) : null
                 }
                 rightIcon={
                   <ChevronDownIcon
                     onClick={() => {
                       setShowSuggestions((prev) => (prev ? false : true))
-                      handleSuggestionFiltering(parsedValue)
+                      handleSuggestionFiltering(searchValue)
                     }}
                     className={ChevArrowClasses}
                   />
@@ -136,20 +142,13 @@ export const AutoLinkCompleteInput = ({
                   handleNavigation(e.key, onChange)
                 }}
                 // show suggestions dropdown on focus
-                onFocus={(e) => {
+                onFocus={() => {
                   setShowSuggestions(true)
-                  handleSuggestionFiltering(e.target.value)
+                  handleSuggestionFiltering(searchValue)
                 }}
                 onBlur={onBlur}
                 onChange={(e) => {
                   onInputChange(e.target.value)
-                  // keep track of the user typed text in value and current selected link in selected
-                  onChange(
-                    JSON.stringify({
-                      value: e.target.value,
-                      selected: filteredSuggestions[focusedItemIndex],
-                    })
-                  )
                 }}
                 {...inputProps}
               />
@@ -160,6 +159,7 @@ export const AutoLinkCompleteInput = ({
                   suggestions={filteredSuggestions}
                   onChange={onChange}
                   value={value}
+                  setSearchValue={setSearchValue}
                 />
               )}
             </div>

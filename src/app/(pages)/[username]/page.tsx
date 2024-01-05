@@ -7,34 +7,26 @@ import Image from 'next/image'
 import styles from './profile.module.scss'
 import { usePathname } from 'next/navigation'
 import { userType } from '@/types/user'
+import { SocialMediaButton } from '@/components/shared/SocialMediaButton'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { Database } from '@/types/supabase'
+import {
+  TPlatformTypeWithLink,
+  TPlatformTypeWithSeperateLink,
+  TUserPlatformsType,
+} from '@/types/Platform'
+import { Button } from '@/components'
+import { CheckboxChecked } from '@/assets/icons'
 
 const Profile = () => {
-  /*   const [platforms, setPlatforms] = useState<TPlatformTypeWithLink[]>([
-    {
-      background_color: '#1A1A1A',
-      icon_name: 'SiGithub',
-      name: 'GitHub',
-      regex: '',
-      url: 'https://github.com/',
-    },
-    {
-      background_color: '#EE3939',
-      icon_name: 'SiYoutube',
-      name: 'YouTube',
-      regex: '',
-      url: 'https://youtube.com/',
-    },
-    {
-      background_color: '#2D68FF',
-      icon_name: 'SiLinkedin',
-      name: 'LinkedIn',
-      regex: '',
-      url: 'https://linkedin.com/',
-    },
-  ]) */
   const pathname = usePathname()
+  const supabase = createClientComponentClient<Database>()
 
   const [userInfo, setUserInfo] = useState<userType | null>(null)
+  const [userPlatforms, setUserPlatforms] = useState<
+    TPlatformTypeWithSeperateLink[] | null[]
+  >([])
+  const [savedUrlToClipboard, setSavedUrlToClipboard] = useState(false)
 
   const fullname = useMemo(
     () =>
@@ -44,14 +36,45 @@ const Profile = () => {
     [userInfo?.first_name, userInfo?.last_name]
   )
 
-  const { user } = useContext(DataContext)
+  const { user, fields } = useContext(DataContext)
+
+  const getUserInfoByNickname = async (nickname: string) => {
+    try {
+      const data = await supabase
+        .from('users')
+        .select('*')
+        .ilike('nickname', `%${nickname}%`)
+        .single()
+      const userPlatforms = await supabase
+        .from('users_platforms')
+        .select('*, platform:platforms(*)')
+        .eq('user_id', `${data.data?.id}`)
+
+      setUserPlatforms(userPlatforms.data as TPlatformTypeWithSeperateLink[])
+      setUserInfo(data.data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const saveUrlToClipboard = () => {
+    const baseURL = process.env.NEXT_PUBLIC_URL
+    navigator.clipboard.writeText(`${baseURL}${userInfo?.nickname}`)
+    setSavedUrlToClipboard(true)
+    setTimeout(() => {
+      setSavedUrlToClipboard(false)
+    }, 3000)
+    console.log(`${baseURL}${userInfo?.nickname}`)
+  }
 
   useEffect(() => {
     if (pathname === '/preview') {
       setUserInfo(user)
     } else {
+      const nickname = pathname.split('/')[1]
+      getUserInfoByNickname(nickname)
     }
-  }, [pathname, user])
+  }, [pathname])
 
   return (
     <div className={styles.profile_container}>
@@ -60,30 +83,63 @@ const Profile = () => {
           padding: 0px !important;
         }
       `}</style>
+      <header className={styles.profile_container__header}>
+        <div className={styles.profile_container__header__wrap}>
+          <Button
+            style={
+              savedUrlToClipboard
+                ? { backgroundColor: '#52b963', color: 'white' }
+                : {}
+            }
+            onClick={() => saveUrlToClipboard()}
+            variant="primary"
+          >
+            {savedUrlToClipboard ? (
+              <>
+                <CheckboxChecked fill={'white'} width={20} height={20} />
+                Saved URL To Clipboard
+              </>
+            ) : (
+              'Share Profile'
+            )}
+          </Button>
+        </div>
+      </header>
       <div className={styles.profile_container__background} />
       <div className={styles.profile_container__wrap}>
         <Image
           width={104}
           height={104}
           alt="profile-image"
-          src={user?.avatar ? `${user?.avatar}` : ``}
+          src={userInfo?.avatar ? `${userInfo?.avatar}` : ``}
           className={styles.profile_container__img}
           priority={true}
         />
         <h1 className={styles.profile_container__name}>
           {fullname ? fullname : userInfo?.nickname}
         </h1>
-        <h4 className={styles.profile_container__email}>ben@example.com</h4>
         <div className={styles.profile_container__socialButtons}>
-          {/* {platforms.map((platform) => (
-            <SocialMediaButton
-              backgroundColor={platform.background_color}
-              socialIcon={platform.icon_name}
-              link={platform.url}
-            >
-              {platform.name}
-            </SocialMediaButton>
-          ))} */}
+          {pathname === '/preview'
+            ? fields?.map((field) => (
+                <SocialMediaButton
+                  backgroundColor={`${field?.platform?.background_color}`}
+                  socialIcon={`${field?.platform?.icon_name}`}
+                  color={`${field?.platform?.color}`}
+                  link={`${field?.url}`}
+                >
+                  {field?.platform?.name}
+                </SocialMediaButton>
+              ))
+            : userPlatforms?.map((field) => (
+                <SocialMediaButton
+                  backgroundColor={`${field?.platform?.background_color}`}
+                  socialIcon={`${field?.platform?.icon_name}`}
+                  color={`${field?.platform?.color}`}
+                  link={`${field?.url}`}
+                >
+                  {field?.platform?.name}
+                </SocialMediaButton>
+              ))}
         </div>
       </div>
     </div>

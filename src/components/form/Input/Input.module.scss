@@ -62,6 +62,10 @@
     background-color: transparent;
   }
 
+  input {
+    width: 100%;
+  }
+
   &__input::placeholder {
     color: $dark-grey;
     opacity: 0.5;

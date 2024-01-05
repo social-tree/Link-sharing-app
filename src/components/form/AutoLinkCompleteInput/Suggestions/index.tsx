@@ -7,6 +7,7 @@ export const Suggestions = ({
   handleSelectingItem,
   onChange,
   focusedItemIndex,
+  setSearchValue,
   value,
 }: ISuggestionsProps) => {
   return (
@@ -14,15 +15,14 @@ export const Suggestions = ({
       {suggestions?.map((suggestion, index) => {
         return (
           <li
-            key={suggestion.name}
+            key={suggestion.id}
             onClick={() => {
               handleSelectingItem(suggestion, index)
-              onChange(
-                JSON.stringify({
-                  value: suggestion.name,
-                  selected: suggestion,
-                })
-              )
+              onChange({
+                url: '',
+                platform: suggestion,
+              })
+              setSearchValue(`${suggestion.name}`)
             }}
             className={`${styles.suggestions__suggestion_item} ${
               index === focusedItemIndex
@@ -30,7 +30,7 @@ export const Suggestions = ({
                 : ''
             }`}
           >
-            <SimpleIcons size={16} name={suggestion.icon_name} />
+            <SimpleIcons size={16} name={`${suggestion.icon_name}`} />
             <span className={styles.suggestions__suggestion_name}>
               {suggestion.name}
             </span>

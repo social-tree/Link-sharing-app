@@ -10,19 +10,20 @@ export const SocialMediaButton = ({
   backgroundColor,
   children,
   socialIcon,
+  color,
   ...props
 }: ISocialMediaButtonProps) => {
   return (
-    <Link href={link}>
+    <a href={link}>
       <button
         className={styles.social_media_button}
         {...props}
-        style={{ background: backgroundColor }}
+        style={{ background: backgroundColor, color }}
       >
         <SimpleIcons size={20} name={socialIcon} />
         {children}
         <ArrowRightIcon className={styles.social_media_button__socialArrow} />
       </button>
-    </Link>
+    </a>
   )
 }

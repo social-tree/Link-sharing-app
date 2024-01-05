@@ -1,59 +1,99 @@
-import { IDataContext, ILink, TControl } from './DataProvider.types'
+'use client'
+
+import { IDataContext, ILink } from './DataProvider.types'
 import {
   ReactNode,
   createContext,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from 'react'
 import {
   Session,
   createClientComponentClient,
 } from '@supabase/auth-helpers-nextjs'
-import { useFieldArray, useForm } from 'react-hook-form'
-
+import { ErrorOption, useFieldArray, useForm } from 'react-hook-form'
 import { TPlatformType } from '@/types'
-import { supabase } from '@/libs/Supabase'
+import { TPlatformTypeWithLink } from '@/types/Platform'
 import { userType } from '@/types/user'
+import { platform } from 'os'
 
 export const DataContext = createContext<IDataContext>({
-  /*   addLink: () => {}, */
+  addLink: () => {},
   remove: () => {},
   platforms: [],
-  control: {} as TControl,
+  control: undefined,
   user: null,
   session: null,
+  fields: null,
+  register: null,
+  watch: null,
+  reset: null,
+  handleSubmit: null,
+  clearErrors: null,
+  errors: null,
+  setValue: null,
+  setError: (name: string, value: ErrorOption) => {},
+  notUsedPlatforms: [],
 })
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const [platforms, setPlatforms] = useState<TPlatformType[]>([])
-  const supabase = createClientComponentClient()
   const [user, setUser] = useState<userType | null>(null)
   const [session, setSession] = useState<Session | null>(null)
-  const { control, register, setValue, getValues } = useForm({
+  const supabase = createClientComponentClient()
+  const {
+    control,
+    register,
+    setValue,
+    watch,
+    reset,
+    handleSubmit,
+    clearErrors,
+    setError,
+    formState: { errors },
+  } = useForm({
     defaultValues: {
       links: [] as ILink[],
-      firstName: '',
-      lastName: '',
+      first_name: '',
+      last_name: '',
       email: '',
-      profileImage: '',
+      avatar: '',
     },
   })
 
-  const { fields, append, remove } = useFieldArray({ control, name: 'links' })
+  const { fields, append, remove, replace } = useFieldArray({
+    control,
+    name: 'links',
+  })
 
-  /*   const addLink = () => {
-    const platform = platforms[fields.length] || platforms[0]
+  const notUsedPlatforms = useMemo(() => {
+    return platforms.filter(
+      (platform) =>
+        !fields.find((field) => field?.platform?.id === platform?.id)
+    )
+  }, [watch('links')])
+
+  const addLink = () => {
+    const platform = notUsedPlatforms[0]
 
     append({
-      url: platform.url,
+      url: ``,
       platform,
+      platform_type: platform.id,
     })
-  } */
+  }
 
   const getUser = async () => {
-    const { data, error } = await supabase.from('users').select('*').single()
-    setUser(data)
+    const { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', `${session?.user?.id}`)
+      .single()
+    if (data) {
+      setUser(data)
+    }
   }
 
   const getSession = async () => {
@@ -61,10 +101,33 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setSession(data.session)
   }
 
+  const getUserPlatforms = async () => {
+    const { data, error } = await supabase
+      .from('users_platforms')
+      .select('*, platform:platforms(*)')
+      .eq('user_id', `${session?.user.id}`)
+
+    if (data) {
+      replace(data as ILink[])
+    }
+  }
+
+  const getPlatforms = async () => {
+    const { data, error } = await supabase.from('platforms').select('*')
+    if (data) {
+      setPlatforms(data as TPlatformTypeWithLink[])
+    }
+  }
+
   useEffect(() => {
-    getUser()
-    getSession()
-  }, [])
+    !session?.access_token && getSession()
+    platforms.length === 0 && getPlatforms()
+  }, [session])
+
+  useEffect(() => {
+    session && fields.length === 0 && getUserPlatforms()
+    !user && session && getUser()
+  }, [session, user])
 
   useEffect(() => {
     const UserInfoChannel = supabase
@@ -81,6 +144,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       .subscribe()
 
     supabase.auth.onAuthStateChange((event, session) => {
+      console.log(event, session)
       setSession(session)
     })
 
@@ -90,7 +154,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [supabase])
 
   const value = {
-    /* addLink, */
+    addLink,
     user,
     session,
     remove,
@@ -99,6 +163,13 @@ export function DataProvider({ children }: { children: ReactNode }) {
     fields,
     register,
     setValue,
+    watch,
+    reset,
+    handleSubmit,
+    clearErrors,
+    errors,
+    setError,
+    notUsedPlatforms,
   }
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>

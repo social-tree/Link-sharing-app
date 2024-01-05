@@ -4,8 +4,9 @@ import classNames from 'classnames'
 import styles from './Input.module.scss'
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ leftIcon, rightIcon, label, error, name, ...props }, ref) => {
-    const errorMessage = (error && name && error[name]?.message) || ''
+  ({ leftIcon, rightIcon, label, error, name, customError, ...props }, ref) => {
+    const errorMessage =
+      customError || (error && name && error[name]?.message) || ''
 
     const inputContainerClassNames = classNames({
       [styles.container__input_container]: true,

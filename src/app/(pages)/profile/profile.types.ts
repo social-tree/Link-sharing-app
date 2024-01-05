@@ -4,6 +4,7 @@ export interface IProfileFormValues {
   first_name: string
   last_name: string
   email: string
+  avatar: string
 }
 
 export interface IProfileChildProps {

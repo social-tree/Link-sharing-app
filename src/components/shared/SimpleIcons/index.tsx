@@ -5,5 +5,5 @@ import { ISimpleIconsProps } from './SimpleIcons.types'
 export const SimpleIcons = ({ name, ...props }: ISimpleIconsProps) => {
   const IconComponent = (icons as any)[name]
 
-  return <IconComponent {...props} />
+  return IconComponent ? <IconComponent {...props} /> : <></>
 }

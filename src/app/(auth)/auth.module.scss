@@ -59,4 +59,10 @@
 
     @include body-m;
   }
+
+  .passwordIcon {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }

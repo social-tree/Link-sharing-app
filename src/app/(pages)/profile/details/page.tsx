@@ -3,9 +3,16 @@
 import { Input, UploadImage } from '@/components'
 
 import { IProfileChildProps } from '../profile.types'
+import React from 'react'
 import styles from './details.module.scss'
+import { useFormContext } from 'react-hook-form'
+import { useDataContext } from '@/Contexts'
 
-function Profile({ errors, register }: IProfileChildProps) {
+function Profile() {
+  const { register, errors, watch, setValue } = useDataContext()
+
+  if (!register) return
+
   return (
     <div className={styles.details}>
       <h1>Profile Details</h1>
@@ -18,7 +25,13 @@ function Profile({ errors, register }: IProfileChildProps) {
         </p>
         <div className={styles.details__upload_image__container}>
           <div>
-            <UploadImage />
+            <UploadImage
+              defaultImage={() => {
+                const values = watch && watch('avatar')
+                return `${values}`
+              }}
+              onChange={(file) => setValue && setValue('avatar', file)}
+            />
           </div>
           <p className={styles.details__upload_image__container__description}>
             Image must be below 1024x1024px. Use PNG or JPG format.
@@ -33,8 +46,7 @@ function Profile({ errors, register }: IProfileChildProps) {
           <Input
             error={errors}
             placeholder="e.g. John"
-            type="email"
-            {...register('first_name', { required: "Can't be empty" })}
+            {...register('first_name')}
             className={styles.details__user_details__fieldset__input}
           />
         </fieldset>
@@ -45,8 +57,7 @@ function Profile({ errors, register }: IProfileChildProps) {
           <Input
             error={errors}
             placeholder="e.g. Appleseed"
-            type="email"
-            {...register('last_name', { required: "Can't be empty" })}
+            {...register('last_name')}
             className={styles.details__user_details__fieldset__input}
           />
         </fieldset>
@@ -57,8 +68,13 @@ function Profile({ errors, register }: IProfileChildProps) {
           <Input
             error={errors}
             placeholder="e.g. email@example.com"
+            {...register('email', {
+              pattern: {
+                value: /^[\w\-\.]+@([\w-]+\.)+[\w-]{2,}$/gm,
+                message: 'Please enter a valid email',
+              },
+            })}
             type="email"
-            {...register('email', { required: "Can't be empty" })}
             className={styles.details__user_details__fieldset__input}
           />
         </fieldset>

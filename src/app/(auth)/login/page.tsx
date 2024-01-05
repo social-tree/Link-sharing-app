@@ -1,15 +1,16 @@
 'use client'
 
-import { EmailIcon, PasswordIcon } from '@/assets/icons'
+import { ClosedEye, EmailIcon, OpenEye, PasswordIcon } from '@/assets/icons'
 
 import { Button } from '@/components'
 import { ILoginFormValues } from './login.types'
 import { Input } from '@/components'
 import Link from 'next/link'
-import Router from 'next/router'
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import styles from '../auth.module.scss'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const Login = () => {
   const supabase = createClientComponentClient()
@@ -21,22 +22,33 @@ const Login = () => {
     watch,
     setError,
   } = useForm<ILoginFormValues>()
+  const [showPassword, setShowPassword] = useState(false)
+
+  const router = useRouter()
 
   const handleLoginSubmit = async ({ email, password }: ILoginFormValues) => {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
-    if (data.session) {
-      Router.push('/profile/links')
+    if (data.user?.email_confirmed_at) {
+      router.push('/profile/links')
     }
     setError('password', { type: 'custom', message: error?.message })
+    const baseURL = process.env.NEXT_PUBLIC_URL
     if (error?.message === 'Email not confirmed') {
       const { data, error } = await supabase.auth.resend({
         type: 'signup',
         email: email,
+        options: {
+          emailRedirectTo: `${baseURL}login`,
+        },
       })
     }
+  }
+
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => (prev ? false : true))
   }
 
   return (
@@ -64,6 +76,20 @@ const Login = () => {
           leftIcon={<PasswordIcon />}
           placeholder="Enter your password"
           label="Password"
+          type={showPassword ? 'text' : 'password'}
+          rightIcon={
+            showPassword ? (
+              <ClosedEye
+                className={styles.passwordIcon}
+                onClick={() => toggleShowPassword()}
+              />
+            ) : (
+              <OpenEye
+                className={styles.passwordIcon}
+                onClick={() => toggleShowPassword()}
+              />
+            )
+          }
           {...register('password', { required: 'Please check again' })}
         />
       </div>

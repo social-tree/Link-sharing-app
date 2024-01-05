@@ -15,6 +15,10 @@
   font-family: inherit;
   @include body-m;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &__socialArrow {
     margin-left: auto;
     @include body-m;

@@ -5,4 +5,5 @@ export interface ISocialMediaButtonProps
   backgroundColor: string
   socialIcon: string
   link: string
+  color: string
 }

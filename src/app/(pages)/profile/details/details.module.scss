@@ -1,76 +1,84 @@
-@use "@/styles/typography" as *;
-@use "@/styles/theme" as *;
+@use '@/styles/typography' as *;
+@use '@/styles/theme' as *;
 
 .details {
-    height: 739px;
-    width: 100%;
-    padding: 40px;
+  height: 739px;
+  width: 100%;
+  padding: 40px;
 
+  &__description {
+    @include body-m;
+    color: $grey;
+    margin-top: 8px;
+  }
+
+  &__upload_image {
+    padding: 5px 10px;
+    width: 100%;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: $light-grey;
+    border-radius: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 5px;
 
     &__description {
+      @include body-m;
+    }
+
+    &__container {
+      height: 100%;
+      max-width: 432px;
+      width: 432px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__description {
+        @include body-s;
+        max-width: 215px;
+      }
+    }
+  }
+
+  &__user_details {
+    @extend .details__upload_image;
+    margin-top: 44px;
+    flex-flow: column;
+
+    &__fieldset {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+
+      &__label {
         @include body-m;
-        color: $grey;
-        margin-top: 8px;
+      }
+
+      div {
+        max-width: 432px;
+        width: 432px;
+      }
     }
+  }
 
-
-    &__upload_image {
-        height: 233px;
-        width: 100%;
-        margin-top: 40px;
-        padding: 20px;
-        background-color: $light-grey;
-        border-radius: 12px;
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        &__description {
-            @include body-m;
-        }
-
-
-        &__container {
-            height: 100%;
-            max-width: 432px;
-            width: 432px;
-
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-            &__description {
-                @include body-s;
-                max-width: 215px;
-            }
-        }
-    }
-
+  @media only screen and (max-width: 1270px) {
     &__user_details {
-        @extend .details__upload_image;
-        height: 208px;
-        margin-top: 44px;
-        flex-flow: column;
+      &__fieldset {
+        flex-direction: column;
+        align-items: flex-start;
 
-        &__fieldset {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-
-
-            &__label {
-                @include body-m;
-            }
-
-            div {
-                max-width: 432px;
-                width: 432px;
-            }
+        div {
+          max-width: 100%;
         }
-
+      }
     }
-
+  }
 }
-
