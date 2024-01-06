@@ -36,7 +36,7 @@ export interface IDataContext {
   addLink: () => void
   remove: UseFieldArrayRemove
   platforms: TPlatformType[]
-  control: Control<FieldValues> | undefined
+  control: Control<TFormFields> | undefined
   user: userType | null
   session: Session | null
   fields: FieldArrayWithId<TFormFields, 'links', 'id'>[] | null
