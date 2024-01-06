@@ -10,7 +10,7 @@ function Links() {
 
   return (
     <div className={styles.links}>
-      <h1>Customize your links</h1>
+      <h1 className={styles.links__title}>Customize your links</h1>
       <p className={styles.links__description}>
         Add/edit/remove links below and then share all your profiles with the
         world!

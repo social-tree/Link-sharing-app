@@ -24,7 +24,7 @@ function Profile() {
           Profile Picture
         </p>
         <div className={styles.details__upload_image__container}>
-          <div>
+          <div className={styles.details__upload_image__pfp}>
             <UploadImage
               defaultImage={() => {
                 const values = watch && watch('avatar')

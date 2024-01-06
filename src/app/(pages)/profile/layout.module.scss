@@ -36,4 +36,17 @@
       border-top: 1px solid $borders;
     }
   }
+
+  @media only screen and (max-width: 997px) {
+    flex-direction: column;
+    &__aside {
+      max-width: unset;
+    }
+  }
+
+  @media only screen and (max-width: 370px) {
+    &__aside {
+      padding: 12px;
+    }
+  }
 }

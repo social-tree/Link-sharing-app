@@ -45,7 +45,7 @@ export function Platform({ id, i, field }: IPlatformProps) {
               pattern: currentPlatform?.platform?.regex
                 ? {
                     value: new RegExp(currentPlatform.platform.regex),
-                    message: 'link doesnt match the platform or is incorrect',
+                    message: 'link is incorrect',
                   }
                 : undefined,
             })}

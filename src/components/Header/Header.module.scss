@@ -68,6 +68,14 @@
         background: $light-purple;
       }
     }
+
+    &__mobile_menu_icon {
+      display: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 
   .right_nav {
@@ -78,6 +86,39 @@
   .non_auth_nav {
     display: flex;
     gap: 8px;
+  }
+
+  .mobile_menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 92px;
+    left: 24px;
+    gap: 10px;
+    padding: 24px;
+    background-color: $white;
+    z-index: 5;
+    width: calc(100% - 43px);
+    box-shadow: 0px 40px 30px rgb(0 0 0 / 20%);
+    border-radius: 12px;
+
+    .nav__a {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 850px) {
+    .right_nav {
+      display: none;
+    }
+
+    .nav {
+      display: none;
+      &__mobile_menu_icon {
+        display: block;
+      }
+    }
   }
 
   @media only screen and (max-width: 510px) {

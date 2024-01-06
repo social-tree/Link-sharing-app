@@ -35,4 +35,15 @@
       background: $light-grey;
     }
   }
+
+  @media only screen and (max-width: 997px) {
+    min-width: unset;
+  }
+
+  @media only screen and (max-width: 370px) {
+    &__title {
+      line-height: 40px;
+    }
+    padding: 20px;
+  }
 }
