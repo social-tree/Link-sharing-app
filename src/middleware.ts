@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
 
-const nonLoggedInUserRegex = /^\/(|login|register)$/
+const nonLoggedInUserRegex = /^\/(login|register)$/
 const loggedInUserRoutes = /^\/(profile|preview)$/
 
 export async function middleware(req: NextRequest) {
@@ -27,5 +27,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/register', '/login', '/profile/:path*'],
+  matcher: ['/register', '/login', '/profile/:path*'],
 }
