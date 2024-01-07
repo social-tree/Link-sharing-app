@@ -40,18 +40,22 @@ const Profile = () => {
 
   const getUserInfoByNickname = async (nickname: string) => {
     try {
-      const data = await supabase
+      const { data, error } = await supabase
         .from('users')
         .select('*')
-        .ilike('nickname', `%${nickname}%`)
+        .textSearch('nickname', `${nickname}`, {
+          type: 'plain',
+          config: 'english',
+        })
         .single()
+      if (!data) return
       const userPlatforms = await supabase
         .from('users_platforms')
         .select('*, platform:platforms(*)')
-        .eq('user_id', `${data.data?.id}`)
+        .eq('user_id', `${data?.id}`)
 
       setUserPlatforms(userPlatforms.data as TPlatformTypeWithSeperateLink[])
-      setUserInfo(data.data)
+      setUserInfo(data)
     } catch (err) {
       console.error(err)
     }
@@ -64,7 +68,6 @@ const Profile = () => {
     setTimeout(() => {
       setSavedUrlToClipboard(false)
     }, 3000)
-    console.log(`${baseURL}${userInfo?.nickname}`)
   }
 
   useEffect(() => {

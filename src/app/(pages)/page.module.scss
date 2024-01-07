@@ -1,20 +1,24 @@
 @use '@/styles/theme.scss' as *;
 
 .main {
-  padding: 24px;
   background-color: $purple;
-  background-image: url('../../assets/img/hero-background.png');
-  background-repeat: no-repeat;
-  background-position: 130%;
-  background-size: 60%;
+  padding-top: 24px;
 
-  .header {
-    position: relative;
-    z-index: 2;
-    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.658);
+  .header_container {
+    padding: 0px 24px;
+    .header {
+      position: relative;
+      z-index: 2;
+      box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.658);
+    }
   }
 
   .hero_section {
+    padding: 24px;
+    background-image: url('../../assets/img/hero-background.png');
+    background-repeat: no-repeat;
+    background-position: 130%;
+    background-size: 60%;
     display: flex;
     position: relative;
     height: calc(100vh - 126px);
@@ -66,6 +70,23 @@
     }
   }
 
+  .users_section {
+    background-color: $white;
+    padding: 40px 24px;
+
+    &__title {
+      font-size: clamp(35px, 8.5vmin, 40px);
+      line-height: 90%;
+      text-align: center;
+      padding-bottom: 20px;
+    }
+    :global {
+      .swiper-slide {
+        align-self: center;
+      }
+    }
+  }
+
   @media only screen and (max-width: 1250px) {
     .hero_section {
       &__sign_up {
@@ -103,8 +124,8 @@
     }
   }
   @media only screen and (max-width: 900px) {
-    background: $purple;
     .hero_section {
+      background: $purple;
       &__sign_up {
         flex-wrap: nowrap;
       }

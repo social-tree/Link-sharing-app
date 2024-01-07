@@ -47,6 +47,8 @@
 
   &__name {
     color: $dark-grey;
+    word-break: break-word;
+    line-height: 30px;
     @include heading-m;
   }
 

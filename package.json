@@ -27,6 +27,7 @@
     "react-hook-form": "^7.45.3",
     "sass": "^1.64.2",
     "short-uuid": "^4.2.2",
+    "swiper": "^11.0.5",
     "typescript": "5.1.6"
   },
   "devDependencies": {

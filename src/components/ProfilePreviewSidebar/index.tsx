@@ -5,15 +5,14 @@ import Image from 'next/image'
 import styles from './ProfilePreviewSidebar.module.scss'
 import { userType } from '@/types/user'
 import { SocialMediaButton } from '../shared/SocialMediaButton'
+import { useWatch } from 'react-hook-form'
 
 export const ProfilePreviewSidebar = () => {
-  const { user, watch, session } = useContext(DataContext)
+  const { user, watch } = useContext(DataContext)
   const formFullName =
     watch && (watch('first_name') || watch('last_name'))
       ? `${watch('first_name')} ${watch('last_name')}`
       : ``
-
-  const formEmail = watch && watch('email')
 
   const fullname = useMemo(
     () =>
@@ -48,19 +47,16 @@ export const ProfilePreviewSidebar = () => {
         <h1 className={styles.profile_preview_sidebar__name}>
           {fullname || user?.nickname}
         </h1>
-        <h4 className={styles.profile_preview_sidebar__email}>
-          {formEmail || session?.user.email}
-        </h4>
         <ul className={styles.profile_preview_sidebar__links}>
-          {links?.map((links) => (
+          {links?.map((link: any) => (
             <li>
               <SocialMediaButton
-                color={`${links?.platform?.color}`}
-                link=""
-                socialIcon={`${links?.platform?.icon_name}`}
-                backgroundColor={`${links?.platform?.background_color}`}
+                color={`${link?.platform?.color}`}
+                link="#"
+                socialIcon={`${link?.platform?.icon_name}`}
+                backgroundColor={`${link?.platform?.background_color}`}
               >
-                {links?.platform?.name}
+                {link?.platform?.name}
               </SocialMediaButton>
             </li>
           ))}

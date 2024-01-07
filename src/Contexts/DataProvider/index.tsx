@@ -67,13 +67,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
     control,
     name: 'links',
   })
+  const links = watch('links')
 
   const notUsedPlatforms = useMemo(() => {
     return platforms.filter(
       (platform) =>
         !fields.find((field) => field?.platform?.id === platform?.id)
     )
-  }, [watch('links')])
+  }, [links])
 
   const addLink = () => {
     const platform = notUsedPlatforms[0]
@@ -106,9 +107,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
       .from('users_platforms')
       .select('*, platform:platforms(*)')
       .eq('user_id', `${session?.user.id}`)
-
     if (data) {
-      replace(data as ILink[])
+      replace(data)
+      setValue('links', data)
     }
   }
 
@@ -130,6 +131,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [session, user])
 
   useEffect(() => {
+    if ((links?.length === 0 || links === undefined) && fields.length > 0)
+      setValue('links', fields)
+  }, [fields, links])
+
+  useEffect(() => {
     const UserInfoChannel = supabase
       .channel('myUser')
       .on(
@@ -144,7 +150,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
       .subscribe()
 
     supabase.auth.onAuthStateChange((event, session) => {
-      console.log(event, session)
       setSession(session)
     })
 

@@ -37,7 +37,6 @@ const ProfileLayout = ({ children }: ILayoutProps) => {
     ...formData
   }: TFormFields) => {
     if (pathname === '/profile/links') {
-      console.log(formData.links)
       const data = await supabase.rpc('insert_user_platforms', {
         links: formData.links,
       })

@@ -58,7 +58,6 @@ const Register = () => {
         emailRedirectTo: `${baseURL}login`,
       },
     })
-    console.log(data)
     data?.user?.email_confirmed_at && router.push('/profile/details')
     if (error?.message.toLocaleLowerCase().includes('nickname')) {
       setError('nickname', { type: 'custom', message: error?.message })
